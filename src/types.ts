@@ -31,6 +31,17 @@ export interface HookCollection<Hooks extends Record<string, unknown>> {
   ) => HookCollection<Hooks>;
 
   /**
+   * Unregister a hook.
+   * @param name The name of the hook
+   * @param hooks The hooks to unregister
+   * @returns The updated hook collection.
+   */
+  unregister: <K extends keyof Hooks>(
+    name: K,
+    ...hooks: Hook<Hooks[K]>[]
+  ) => HookCollection<Hooks>;
+
+  /**
    * Execute a hook. Hooks are executed in the order they are registered. The function returns
    * the updated context, which may have been modified or rerefenced by the hooks.
    * @param name The name of the hook.

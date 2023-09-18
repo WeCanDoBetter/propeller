@@ -23,6 +23,21 @@ export function createHookCollection<
 
       return collection;
     },
+    unregister: (name, ...hooks) => {
+      const existing = map.get(name as string);
+
+      if (existing) {
+        for (const hook of hooks) {
+          const index = existing.indexOf(hook as Hook<unknown>);
+
+          if (index !== -1) {
+            existing.splice(index, 1);
+          }
+        }
+      }
+
+      return collection;
+    },
     execute: async (name, ctx) => {
       const hooks = map.get(name as string);
 

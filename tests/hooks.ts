@@ -63,6 +63,32 @@ describe("Hook System", () => {
     expect(updatedContext.b).toBe(99);
   });
 
+  it("should unregister a hook", async () => {
+    // Register the "beforeExecute" hook
+    hooks.register("beforeExecute", beforeExecuteHook);
+
+    // Create an initial context
+    const context: BeforeExecuteContext = { a: 10 };
+
+    // Execute the "beforeExecute" hook
+    const updatedContext = await hooks.execute("beforeExecute", context);
+
+    // Assert that the hook modified and returned the context
+    expect(updatedContext.a).toBe(42);
+
+    // Unregister the "beforeExecute" hook
+    hooks.unregister("beforeExecute", beforeExecuteHook);
+
+    // Create a new initial context
+    const context2: BeforeExecuteContext = { a: 10 };
+
+    // Execute the "beforeExecute" hook again
+    const updatedContext2 = await hooks.execute("beforeExecute", context2);
+
+    // Assert that the hook did not modify the context
+    expect(updatedContext2.a).toBe(10);
+  });
+
   it("should execute multiple hooks in the specified order, returning context", async () => {
     // Register multiple "beforeExecute" hooks
     hooks.register("beforeExecute", beforeExecuteHook);

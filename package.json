@@ -1,7 +1,7 @@
 {
   "name": "@wecandobetter/propeller",
   "description": "Propeller is a hook-based extension library.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "license": "MIT",
   "main": "dist/index.js",
